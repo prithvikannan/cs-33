@@ -1,0 +1,29 @@
+Prithvi Kannan 4051100096
+
+2.71	a. 	This code does not actually perform sign extension. Instead of filling the bits with the MSB
+		it fills it with 0's instead. This is because the & 0xFF part will compare the current 
+		expression with 000 .... 1111 1111, which will always have a 0 in the most significant bit,
+		so the result can never be negative.
+
+	b. 	int xbyte(packed_t word, int bytenum)
+		{	
+			return ((int)(word << ((3 - bytenum) << 3)) >> 24);
+		}
+
+2.82	a.  	This is not always 1. Mathematically (x<y) == (-x>-y), but in code, due to the asymmetry of 
+		integers, this may not still be true. For example, if x = -128, then -x should be +128, but 
+		is above the maximum size of a signed integer, so it will wrap around.
+	
+	b. 	This is always 1. (x+y)<<4 +y-x is equal to (x+y)*2^4 +y-x = x*16 + y*16 +y-x = 15*x + 17*y
+	
+	c.	This is always 1. ~x = -x - 1 by the properties of the NOT operator, so we can rewrite the 
+		expression as (-x-1)+(-y-1)+1 = -(x+y)-1, which is equal to -x-y-1 on both sides.
+	
+	d. 	This is always 1. The (unsigned) is not an operation so we can rearrange the right side. We 
+		have (unsigned)(-(y-x)) = (unsigned)(x-y). Now we say that we are considering x and y 
+		unsigned values to get ux-uy.
+	
+	e. 	This is always 1. x >> 2 is the equivalent of dividing by 2^2, which is 4. Similarly, << 2 
+		is multiplication by 2^2, which is also 4, therefore the left side (x >> 2) << 2 = x. Now 
+		x <= x. The <= is there to handle the cases of integer division, where the actual left
+		side may but smaller than the original value of x.
