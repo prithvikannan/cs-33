@@ -1,0 +1,22 @@
+Prithvi Kannan 4051100096
+
+The array magic8ball is a 3D array of 8x8x8 chars, and we want to find what is stored at magic8ball[3][4]. 
+
+We start by calculating the bytes in the array that correspond to magic8ball[3][4]. The [3] references the outermost level of the array, 
+and indicates that we want to get to the 3rd element. We multiply 3*8*8 since each element at the outermost level is an [8][8] array 
+and takes up 8*8*1 bytes (1 because char is one byte). The [4] references the next inner level of the array, which consists of char arrays
+of size 8. We multiply 4*8*1 (1 because char is one byte) to get how far into the array we need to go to find the 4th element. Combining 
+[3][4] means adding 3*8*8*1 + 4*8*1, which is 224. 
+
+Now we convert 224 to hex. Since 224 is 14*16 + 0*1, we can express 224 as e0 in hex. We know the starting location of the array is 
+0x7fffffffe000, so we add e0 bytes to that to get to the location magic8ball[3][4], which is 0x7fffffffe0e0. 
+
+At this address, we see the elements are 0x57 0x72 0x6f 0x6e 0x67 0x00 0x00 0x00. Since the type is char, each entry represents a 
+particular character. Also, since we are on a 64-bit little endian architecture machine, we are supposed to switch the order of the bytes.
+However, since chars only have 1 byte, switching the order of the bytes makes no difference. 
+
+Now we use the hex to ascii conversion table to get that 0x57 corresponds to 'w', 0x72 corresponds to 'r', 0x6f corresponds to 'o', 
+0x6e corresponds to 'n', 0x67 corresponds to 'g', and that 0x00 corresponds to null. Putting these together gives wrong 
+(with 3 null at the end). 
+
+Therefore the final answer is the string "wrong". 
