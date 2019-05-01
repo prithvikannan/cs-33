@@ -1,0 +1,321 @@
+/lib64/ld-linux-x86-64.so.2
+libc.so.6
+socket
+fflush
+strcpy
+exit
+sprintf
+fopen
+__isoc99_sscanf
+connect
+signal
+puts
+stdin
+strtol
+fgets
+__errno_location
+read
+stdout
+strcasecmp
+__ctype_b_loc
+getenv
+stderr
+alarm
+gethostbyname
+gethostname
+close
+fprintf
+sleep
+memmove
+__libc_start_main
+write
+__gmon_start__
+GLIBC_2.3
+GLIBC_2.7
+GLIBC_2.2.5
+%z4 
+%r4 
+%j4 
+%b4 
+%Z4 
+%R4 
+%J4 
+%B4 
+%:4 
+%24 
+%*4 
+%"4 
+%"3 
+;hu	[
+ATUSH
+ []A\
+t'ATUSA
+[]A\
+AWAVAUATUSH
+l$0M
+T$ H
+D$(H
+=_5 
+X[]A\A]A^A_
+=a4 
+ATUSH
+t/:E
+[]A\
+=i/ 
+=:1 
+=-1 
+D$	d
+D$ s
+D$!e
+D$".
+D$# 
+D$$ 
+D$%N
+D$&i
+D$'c
+D$(e
+D$),
+D$* 
+D$+b
+D$,u
+D$-t
+D$/d
+D$0o
+D$1n
+D$2'
+D$3t
+D$4 
+D$5t
+D$6e
+D$7l
+D$8l
+D$9 
+D$:a
+D$;n
+D$<y
+D$=o
+D$>n
+D$?e
+D$@ 
+D$Aa
+D$Bb
+D$Co
+D$Du
+D$Et
+D$F 
+D$Gi
+D$Ht
+D$I 
+D$J(
+D$Ke
+D$Ls
+D$Mp
+D$Ne
+D$Oc
+D$Pi
+D$Qa
+D$Rl
+D$Sl
+D$Ty
+D$U 
+D$Vo
+D$Wn
+D$X 
+D$YP
+D$Zi
+D$[a
+D$\z
+D$]z
+D$^a
+D$_)
+D$`.
+D$bI
+D$cf
+D$d 
+D$ey
+D$fo
+D$gu
+D$h 
+D$id
+D$jo
+D$k 
+D$ly
+D$mo
+D$nu
+D$o 
+D$pw
+D$qo
+D$rn
+D$s'
+D$tt
+D$u 
+D$vg
+D$we
+D$xt
+D$y 
+D$za
+D${n
+D$|y
+D$} 
+D$~e
+=/, 
+=", 
+***truncH
+ated***
+AVAUATUSH
+[]A\A]A^
+AWAVAUATUSH
+Error: CH
+lient unI
+able to H
+create sI
+G ockefA
+Error: DH
+NS is unI
+able to H
+resolve I
+server aI
+G(ddrefA
+G,ssA
+Error: UH
+nable toI
+ connectH
+ to the I
+G servfA
+G$erA
+Error: RH
+esult stI
+ring tooH
+ large. I
+IncreaseH
+ SUBMITRI
+_MAXBUF
+<_v	
+Error: CH
+lient unI
+able to H
+read firI
+st headeH
+r from sI
+G0ervefA
+[]A\A]A^A_
+Error: CH
+lient unI
+able to H
+read heaI
+ders froH
+m serverI
+Error: CH
+lient unI
+able to H
+read staI
+tus messH
+age fromI
+ server
+Error: CH
+lient unI
+able to H
+write toI
+ the serI
+G(ver
+Error: RH
+esult stI
+ring conH
+tains anI
+ illegalH
+ or unprI
+intable H
+characteI
+W8fA
+G@r.A
+L$ L
+D$(H
+D$0H
+Error: CH
+lient unH
+able to H
+create sH
+E ockef
+Error: DH
+NS is unH
+able to H
+resolve H
+server aH
+E(ddref
+E,ss
+APRA
+[]A\A]A^A_
+%s: Error: Couldn't open %s
+Usage: %s [<input_file>]
+Phase 1 defused. And they said you'd never amount to anything. 
+That's number 2.  Why so serious?
+Now that was beautiful! Halfway there!
+Four stages complete? And they said I was the mad one!
+Alright good work, you'll like this last one!
+Wow! You've defused the secret stage!
+Achievement Unlocked: Master Haxor
+So you think you can stop the bomb with ctrl-c, do you?
+Initialization error: Running on an illegal host [1]
+Initialization error: Running on an illegal host [2]
+   .------ /------.                                              
+   |       -       |                                              
+   |               |        It's a perfect day for some mayhem.   
+   |               |                                              
+_______________________                                           
+===========.===========         Have some fun with my six         
+  / ~~~~~     ~~~~~ \           explodey phases ...              
+ /|     |     |     |\                                           
+ W   ---  / \  ---   W                                           
+ \.      |o o|      ./                                           
+  |                 |                                             
+  \    #########    /                                            
+   \  ## ----- ##  /        Watch your step!                     
+    \##         ##/                                              
+     \_____v_____/                                               
+Congratulations! You've defused the bomb!
+Your instructor has been notified and will verify your solution.
+Oh, you really stepped in it, mate!
+Your instructor has been notified.
+Well...
+OK. :-)
+Invalid phase%s
+Initialization error:
+defused
+exploded
+%d:%s:%d:%s
+oops
+This bomb's for you!
+You'll like this one!
+Ohoho, this'll be good
+Got'cha!
+Surprise!
+BOOM!!!
+The bomb has blown up.
+%d %d %d %d %d %d
+Error: Premature EOF on stdin
+GRADE_BOMB
+Error: Input line too long
+localhost
+cs33.cs.ucla.edu
+cs33
+lnxsrv01.seas.ucla.edu
+lnxsrv02.seas.ucla.edu
+lnxsrv03.seas.ucla.edu
+lnxsrv04.seas.ucla.edu
+lnxsrv05.seas.ucla.edu
+lnxsrv06.seas.ucla.edu
+lnxsrv07.seas.ucla.edu
+lnxsrv08.seas.ucla.edu
+lnxsrv09.seas.ucla.edu
+lnxsrv10.seas.ucla.edu
+Program timed out after %d seconds
+Error: HTTP request failed with error %d: %s
+GET /%s/submitr.pl/?userid=%s&userpwd=%s&lab=%s&result=%s&submit=submit HTTP/1.0
+Error: Unable to connect to server %s
+%%%02X
+%s %d %[a-zA-z ]
+AUTORESULT_STRING=%s
+csapp
+;*3$"
+JthLmDfhtfosM8ps1Mn1
+405110096
