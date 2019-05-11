@@ -3,18 +3,18 @@ void psum_4by1unrolled(float a[], float p[], long n) {
     float val, last_val;
     last_val = p[0] = a[0];
 
-    float tmp, temp1, tmp2, tmp3;
+    float t0, t1, t2, t3;
 
-    for (i = 1; i < n - 4; i++) {
-        tmp = last_val + a[i];
-        tmp1 = tmp + a[i+1];
-        tmp2 = tmp1 + a[i+2];
-        tmp3 = tmp2 + a[i+3];
+    for (i = 1; i < n - 4; i=i+4) {
+        t0 = last_val + a[i];
+        t1 = t0 + a[i+1];
+        t2 = t1 + a[i+2];
+        t3 = t2 + a[i+3];
 
-        p[i] = tmp;
-        p[i+1] = tmp1;
-        p[i+2] = tmp2;
-        p[i+3] = tmp3;
+        p[i] = t0;
+        p[i+1] = t1;
+        p[i+2] = t2;
+        p[i+3] = t3;
 
         last_val = last_val + (a[i] + a[i+1] + a[i+2] + a[i+3]);
     }
