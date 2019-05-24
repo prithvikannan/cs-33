@@ -1,8 +1,8 @@
 //OpenMP version.  Edit and submit only this file.
 /* Enter your details below
- * Name :
- * UCLA ID : 
- * Email :
+ * Name : Prithvi Kannan
+ * UCLA ID : 405110096
+ * Email : prithvi.kannan@gmail.com
  */
 
 #include <stdlib.h>
@@ -17,14 +17,20 @@ void work_it_par(long *old, long *new) {
   long compute_it;
   long aggregate=1.0;
 
+  long temp = 0;
+  #pragma omp parallel for private (temp)
   for (i=1; i<DIM-1; i++) {
     for (j=1; j<DIM-1; j++) {
       for (k=1; k<DIM-1; k++) {
-        compute_it = old[i*DIM*DIM+j*DIM+k] * we_need_the_func();
-        aggregate+= compute_it / gimmie_the_func();
+        long a;
+        a = old[i*DIM*DIM+j*DIM+k] * we_need_the_func();
+        temp+= a / gimmie_the_func();
       }
     }
+    // aggregate+=temp;
   }
+  aggregate+=temp;
+
 
   printf("AGGR:%ld\n",aggregate);
 
@@ -43,6 +49,7 @@ void work_it_par(long *old, long *new) {
       }
     }
   }
+
 
   for (i=1; i<DIM-1; i++) {
     for (j=1; j<DIM-1; j++) {
