@@ -1,0 +1,21 @@
+// Prithvi Kannan
+// 405110096
+
+void transpose(int *dst, int *src, int dim)
+{
+    const int blocksize = 8;
+    int i, j, x, y;
+
+    for (i = 0; i < dim; i += blocksize)
+    {
+        for (j = 0; j < dim; j += blocksize)
+        {
+            for (x = i; (x < dim && x < i+blocksize); x++)
+            {
+                for (y = j; (y < dim && y < j+blocksize); y++)
+                    dst[y*dim + x] = src[x*dim + y];
+            }
+        }
+    }
+}
+
