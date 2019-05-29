@@ -17,49 +17,51 @@ void work_it_par(long *old, long *new) {
   long compute_it;
   long aggregate=1.0;
 
-  long temp = 0;
-  #pragma omp parallel for private (temp)
   for (i=1; i<DIM-1; i++) {
+    int tempi = i*DIM*DIM;
     for (j=1; j<DIM-1; j++) {
+      int tempj = tempi + j*DIM;
       for (k=1; k<DIM-1; k++) {
-        long a;
-        a = old[i*DIM*DIM+j*DIM+k] * we_need_the_func();
-        temp+= a / gimmie_the_func();
+        compute_it = old[tempj+k] * we_need_the_func();
+        aggregate+= compute_it / gimmie_the_func();
       }
     }
-    // aggregate+=temp;
   }
-  aggregate+=temp;
 
 
   printf("AGGR:%ld\n",aggregate);
 
+  int tempi = 0;
+  int tempj = 0;
+  int tempk = 0;
+  int temp = 0;
+  
   for (i=1; i<DIM-1; i++) {
+    tempi = i*DIM*DIM;
     for (j=1; j<DIM-1; j++) {
+      tempj = tempi + j*DIM;
       for (k=1; k<DIM-1; k++) {
-        new[i*DIM*DIM+j*DIM+k]=0;
+        tempk = tempj + k;
+        temp = 0;
+        #pragma omp parallel for private(v,w) reduction(+:temp)
         for (u=-1; u<=1; u++) {
           for (v=-1; v<=1; v++) {
             for (w=-1; w<=1; w++) {
-               new[i*DIM*DIM+j*DIM+k]+=old[(i+u)*DIM*DIM+(j+v)*DIM+(k+w)];
+               temp+=old[(i+u)*DIM*DIM+(j+v)*DIM+(k+w)];
             }
           }
         }
-        new[i*DIM*DIM+j*DIM+k]/=27;
-      }
-    }
-  }
 
+        temp/=27;
+        new[tempk]=temp;
 
-  for (i=1; i<DIM-1; i++) {
-    for (j=1; j<DIM-1; j++) {
-      for (k=1; k<DIM-1; k++) {
-        u=(new[i*DIM*DIM+j*DIM+k]/100);
+        u=(temp/100);
         if (u<=0) u=0;
         if (u>=9) u=9;
         histogrammy[u]++;
+      
       }
     }
-    }
+  }
 
 }
