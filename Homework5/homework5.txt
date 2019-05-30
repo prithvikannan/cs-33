@@ -4,4 +4,4 @@ Prithvi Kannan
 
 1. The value of i is: 7
 
-2. The worst combination is jyix.
+2. The worst combination is jyix. E.
