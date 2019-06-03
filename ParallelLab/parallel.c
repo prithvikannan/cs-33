@@ -22,8 +22,11 @@ void work_it_par(long *old, long *new) {
     long address = 0;
     long tempAddress = 0;
 
-    #pragma omp parallel for private(j,k,address, compute_it, tempAddress, u) reduction(+: aggregate) reduction(+:tempSum)\
-    reduction(+:u_0) reduction(+:u_1) reduction(+:u_2) reduction(+:u_3) reduction(+:u_4) reduction(+:u_5) reduction(+:u_6) reduction(+:u_7) reduction(+:u_8) reduction(+:u_9)
+    // #pragma omp parallel for private(j,k,address, compute_it, tempAddress, u) reduction(+: aggregate) reduction(+:tempSum)\
+    // reduction(+:u_0) reduction(+:u_1) reduction(+:u_2) reduction(+:u_3) reduction(+:u_4) reduction(+:u_5) reduction(+:u_6) reduction(+:u_7) reduction(+:u_8) reduction(+:u_9)
+    omp_set_num_threads (32);
+    #pragma omp parallel for private(j,k,address, compute_it, tempAddress, u) reduction(+: aggregate,tempSum)\
+    reduction(+:u_0, u_1, u_2, u_3, u_4, u_5 ,u_6, u_7, u_8, u_9)
     for (i=1; i<DIM-1; i++) {
         for (j=1; j<DIM-1; j++) {
             for (k=1; k<DIM-1; k++) {
